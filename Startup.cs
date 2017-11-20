@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PersistentUnreal.Data;
-using PersistentUnreal.Models;
+using PersistentUnreal.Helpers;
+using PersistentUnreal.Mediators;
 
 namespace PersistentUnreal
 {
@@ -19,9 +20,12 @@ namespace PersistentUnreal
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PUAccountDbContext>(opt => opt.UseInMemoryDatabase("Account"));
 
             services.AddDbContext<ItemContext>(opt => opt.UseInMemoryDatabase("Item"));
             services.AddMvc();
+
+            services.AddScoped<IPUAccountMediator, PUAccountMediator>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -30,6 +34,8 @@ namespace PersistentUnreal
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseErrorHandling();
 
             app.UseMvc();
         }

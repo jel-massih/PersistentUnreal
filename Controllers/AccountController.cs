@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using PersistentUnreal.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using PersistentUnreal.Helpers;
 using PersistentUnreal.Mediators;
-using PersistentUnreal.Models;
+using PersistentUnreal.ViewModels;
+using System.Net;
 
 namespace PersistentUnreal.Controllers
 {
@@ -14,9 +10,9 @@ namespace PersistentUnreal.Controllers
     [Route("api/Account")]
     public class AccountController : Controller
     {
-        private readonly PUAccountMediator m_AccountMediator;
+        private readonly IPUAccountMediator m_AccountMediator;
 
-        public AccountController(PUAccountMediator accountMediator)
+        public AccountController(IPUAccountMediator accountMediator)
         {
             m_AccountMediator = accountMediator;
         }
@@ -34,8 +30,9 @@ namespace PersistentUnreal.Controllers
             return new ObjectResult(account);
         }
 
-        // PUT: api/Account/5
+        // POST: api/Account/register
         [HttpPost("register")]
+        [ApiValidationFilter]
         public IActionResult RegisterAccount ([FromBody]AccountRegisterRequest accountRequest)
         {
             if (accountRequest == null)
@@ -43,7 +40,16 @@ namespace PersistentUnreal.Controllers
                 return BadRequest();
             }
             
-            return m_AccountMediator.RegisterAccount(accountRequest, Request);
+            var resp = m_AccountMediator.RegisterAccount(accountRequest);
+
+            if(resp.StatusCode == (int)HttpStatusCode.OK)
+            {
+                return Ok(resp);
+            }
+            else
+            {
+                return BadRequest(resp);
+            }
         }
     }
 }
