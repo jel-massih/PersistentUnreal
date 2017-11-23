@@ -7,7 +7,7 @@ using System.Net;
 namespace PersistentUnreal.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Account")]
+    [Route("api/v1/Account")]
     public class AccountController : Controller
     {
         private readonly IPUAccountMediator m_AccountMediator;
@@ -18,7 +18,8 @@ namespace PersistentUnreal.Controllers
         }
 
         // GET: api/Account/5
-        [HttpGet("{accountId}", Name = "GetAccount")]
+        [Route("api/v1/account/{accountId}")]
+        [HttpGet]
         public IActionResult GetAccount(int accountId)
         {
             var account = m_AccountMediator.GetAccountByAccountId(accountId);
@@ -31,7 +32,8 @@ namespace PersistentUnreal.Controllers
         }
 
         // POST: api/Account/register
-        [HttpPost("register")]
+        [Route("api/v1/account/register")]
+        [HttpPost]
         [ApiValidationFilter]
         public IActionResult RegisterAccount ([FromBody]AccountRegisterRequest accountRequest)
         {

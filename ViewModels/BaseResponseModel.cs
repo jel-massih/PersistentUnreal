@@ -25,6 +25,7 @@ namespace PersistentUnreal.ViewModels
 
     public class ApiOkResponse : BaseApiResponse
     {
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public object Result { get; }
 
         public ApiOkResponse() : this (null) {}

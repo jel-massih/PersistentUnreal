@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/item",
+      "launchUrl": "api/v1",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,7 +19,7 @@
     "PersistentUnreal": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/item",
+      "launchUrl": "api/v1",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
