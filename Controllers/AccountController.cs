@@ -18,8 +18,7 @@ namespace PersistentUnreal.Controllers
         }
 
         // GET: api/Account/5
-        [Route("api/v1/account/{accountId}")]
-        [HttpGet]
+        [HttpGet("{accountId}")]
         public IActionResult GetAccount(int accountId)
         {
             var account = m_AccountMediator.GetAccountByAccountId(accountId);
@@ -32,8 +31,7 @@ namespace PersistentUnreal.Controllers
         }
 
         // POST: api/Account/register
-        [Route("api/v1/account/register")]
-        [HttpPost]
+        [HttpPost("register")]
         [ApiValidationFilter]
         public IActionResult RegisterAccount ([FromBody]AccountRegisterRequest accountRequest)
         {

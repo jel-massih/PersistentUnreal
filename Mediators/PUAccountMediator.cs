@@ -82,7 +82,7 @@ namespace PersistentUnreal.Mediators
 
         private bool ValidPassword(string password)
         {
-            return Regex.Match(password, "^(?=.{3,15}$)([A-Za-z0-9][._()\\[\\]-]?)*$").Success;
+            return Regex.Match(password, "^(?=.{3,15}$)([A-Za-z0-9][._()!\\[\\]-]?)*$").Success;
         }
     }
 }
